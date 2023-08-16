@@ -1,3 +1,64 @@
+const rock=document.querySelector("#Rock");
+const paper=document.querySelector("#Paper");
+const scissors=document.querySelector("#Scissors");
+const results=document.querySelector("#Results");
+let playerScore=0;
+let computerScore=0;
+let human="";
+rock.addEventListener("click", function(e){
+    human="rock";
+    results.textContent="The score is computer: "+computerScore+" human: "+playerScore;
+        win=winner(getComputerChoice(),human);
+        if(win.charAt(4)=="W"){
+            playerScore++;
+        }
+        else if(win.charAt(4)=="L"){
+            computerScore++;
+        }
+        else{
+            computerScore++;
+            playerScore++;
+        }
+        results.textContent+=" "+win;
+        if(playerScore+computerScore>=5)game();
+}
+    );
+paper.addEventListener("click", function(e){
+    human="paper";
+    results.textContent="The score is computer: "+computerScore+" human: "+playerScore;
+        win=winner(getComputerChoice(),human);
+        results.textContent+=win;
+        if(win.charAt(4)=="W"){
+            playerScore++;
+        }
+        else if(win.charAt(4)=="L"){
+            computerScore++;
+        }
+        else{
+            computerScore++;
+            playerScore++;
+        }
+        if(playerScore+computerScore>=5)game();
+}
+);
+scissors.addEventListener("click",function(e){
+human="scissors";
+results.textContent="The score is computer: "+computerScore+" human: "+playerScore;
+        win=winner(getComputerChoice(),human);
+        results.textContent=win;
+        if(win.charAt(4)=="W"){
+            playerScore++;
+        }
+        else if(win.charAt(4)=="L"){
+            computerScore++;
+        }
+        else{
+            computerScore++;
+            playerScore++;
+        }
+        results.textContent+=" "+win;
+        if(playerScore+computerScore>=5)game();
+});
 function getComputerChoice(){
     let choice = Math.floor(Math.random()*3);
     switch(choice){
@@ -34,36 +95,20 @@ function winner(computer, human){
     }
 }
 function game(){
-    let playerScore=0;
-    let computerScore=0;
-    for(let i=0;i<5;i++){
-        console.log("The score is currently human: "+playerScore+"computer: "+computerScore);
-        human=prompt("what is your move");
-        win=winner(getComputerChoice(),human);
-        console.log(win);
-        if(win.charAt(4)=="W"){
-            playerScore++;
-        }
-        else if(win.charAt(4)=="L"){
-            computerScore++;
-        }
-        else{
-            computerScore++;
-            playerScore++;
-        }
-    }
     if(computerScore>playerScore){
-        console.log("You Lose");
+        results.textContent="you lose the game";
     }
     else if(playerScore>computerScore){
-        console.log("You win");
+        results.textContent="You win the game";
     }
     else{
-        console.log("You tied");
+        results.textContent="You tied the game";
     }
-    let choice=prompt("Do you want to play again");
-    if(choice =="yes"){
-        game();
-    }
+    const offer=document.createElement("div");
+    document.appendChild(offer);
+    offer.textContent="Do you want to play again";
+    offer.addEventListener("click",function(e){
+        playerScore=0;
+        computerScore=0;
+    })
 }
-game();
